@@ -35,8 +35,19 @@ class App extends React.Component {
     this.setState({ selectedBoardId });
   }
 
-  render() {
+  renderView = () => {
     const { authed, selectedBoardId } = this.state;
+    if (!authed) {
+      return (<Auth />);
+    }
+    if (!selectedBoardId) {
+      return (<BoardsContainer setSingleBoard={this.setSingleBoard} />);
+    }
+    return (<SingleBoard selectedBoardId={selectedBoardId} setSingleBoard={this.setSingleBoard} />);
+  }
+
+  render() {
+    const { authed } = this.state;
 
 
     return (
@@ -45,10 +56,7 @@ class App extends React.Component {
         <header className="App-header">
           <button className="btn btn-danger">Kewl Button</button>
           {
-            (authed) ? (<BoardsContainer setSingleBoard={this.setSingleBoard} />) : (<Auth />)
-          }
-          {
-           (selectedBoardId) && (<SingleBoard selectedBoardId={selectedBoardId} setSingleBoard={this.setSingleBoard} />)
+            this.renderView()
           }
         </header>
       </div>
