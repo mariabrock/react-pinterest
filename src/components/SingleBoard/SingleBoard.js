@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import boardData from '../../helpers/data/boardData';
+import pinsData from '../../helpers/data/pinsData';
 
 class SingleBoard extends React.Component {
     static propTypes = {
@@ -11,6 +12,7 @@ class SingleBoard extends React.Component {
 
     state = {
       board: {},
+      pins: {},
     }
 
     componentDidMount() {
@@ -18,6 +20,7 @@ class SingleBoard extends React.Component {
       boardData.getSingleBoard(selectedBoardId)
         .then((request) => {
           this.setState({ board: request.data });
+          pinsData.getPinsByBoardId(selectedBoardId);
         })
         .catch((errorFromGetSingleBoard) => console.error({ errorFromGetSingleBoard }));
     }
