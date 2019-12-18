@@ -6,23 +6,25 @@ import authData from '../../helpers/data/authData';
 class PinForm extends React.Component {
     static propTypes = {
       addPin: PropTypes.func,
+      selectedBoardId: PropTypes.string,
     }
 
     state = {
       pinTitle: '',
-      imageUrl: '',
+      pinImageUrl: '',
     }
 
     savePinEvent = (e) => {
-      const { addPin } = this.props;
+      const { savePin, selectedBoardId } = this.props;
 
       e.preventDefault();
       const newPin = {
         pinTitle: this.state.pinTitle,
-        imageUrl: this.state.imageUrl,
+        pinImageUrl: this.state.pinImageUrl,
         uid: authData.getUid(),
+        boardId: selectedBoardId,
       };
-      addPin(newPin);
+      savePin(newPin);
       this.setState({ pinTitle: '', imageUrl: '' });
     }
 
@@ -31,12 +33,14 @@ class PinForm extends React.Component {
       this.setState({ pinTitle: e.target.value });
     }
 
-    urlChange = (e) => {
+    imageUrlChange = (e) => {
       e.preventDefault();
       this.setState({ imageUrl: e.target.value });
     }
 
     render() {
+      const { pinTitle, pinImageUrl } = this.state;
+
       return (
             <form className='col-6 offset-3 PinForm'>
           <div className="form-group">
@@ -46,7 +50,7 @@ class PinForm extends React.Component {
               className="form-control"
               id="pin-title"
               placeholder="Your Pic Here"
-              value={this.state.pinTitle}
+              value={pinTitle}
               onChange={this.titleChange}
             />
           </div>
@@ -57,8 +61,8 @@ class PinForm extends React.Component {
               className="form-control"
               id="pin-image-url"
               placeholder="https://www.google.com"
-              value={this.state.imageUrl}
-              onChange={this.urlChange}
+              value={pinImageUrl}
+              onChange={this.imageUrlChange}
             />
           </div>
           <button className="btn btn-secondary" onClick={this.savePinEvent}>Add Pin</button>
