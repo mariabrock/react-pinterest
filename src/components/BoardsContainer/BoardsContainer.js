@@ -8,11 +8,11 @@ import authData from '../../helpers/data/authData';
 import boardData from '../../helpers/data/boardData';
 
 class BoardsContainer extends React.Component {
-  static prepTypes = {
+  static propTypes = {
     setSingleBoard: PropTypes.func,
   }
 
-state ={
+state = {
   boards: [],
 }
 
