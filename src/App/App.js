@@ -53,12 +53,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <MyNavbar authed={authed} />
-        <header className="App-header">
-          <button className="btn btn-danger">Kewl Button</button>
           {
             this.renderView()
           }
-        </header>
+
       </div>
     );
   }

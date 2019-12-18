@@ -1,19 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-// import { render } from '@testing-library/react';
 import pinShape from '../../helpers/propz/pinShape';
 
-class Pins extends React.Component {
+class Pin extends React.Component {
     static propTypes = {
       pin: pinShape.pinShape,
-      setSinglePin: PropTypes.func,
-    }
-
-    setSelectedPinId = (e) => {
-      e.preventDefault();
-      const { setSinglePin, pin } = this.props;
-      setSinglePin(pin.id);
     }
 
     render() {
@@ -25,7 +16,7 @@ class Pins extends React.Component {
           <img src={pin.imageUrl} className="card-img-top" alt="" />
           <div className="card-body">
             <h5 className="card-title">{pin.title}</h5>
-            <button className="btn btn-danger" onClick={this.setSelectedPinId}>X</button>
+            <button className="btn btn-danger" onClick={() => {}}>X</button>
           </div>
         </div>
       </div>
@@ -33,4 +24,4 @@ class Pins extends React.Component {
     }
 }
 
-export default Pins;
+export default Pin;
