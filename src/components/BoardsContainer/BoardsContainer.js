@@ -40,6 +40,15 @@ componentDidMount() {
       .catch((errorFromSaveBoard) => console.error({ errorFromSaveBoard }));
   }
 
+  updateBoard = (boardId, updatedBoard) => {
+    boardData.updateBoard(boardId, updatedBoard)
+      .then(() => {
+        this.getBoards();
+        this.setState({ editMode: false, showBoardForm: false });
+      })
+      .catch((errorFromUpdateBoard) => console.error({ errorFromUpdateBoard }));
+  }
+
   setEditMode = (editMode) => {
     this.setState({ editMode, showBoardForm: true });
   }
@@ -58,7 +67,7 @@ componentDidMount() {
     return (
     <div>
       <button className="btn btn-light" onClick={this.setShowBoardForm}>Add A New Board</button>
-      { this.state.showBoardForm && <BoardForm addBoard={this.addBoard} editMode={this.state.editMode} boardToEdit={this.state.boardToEdit} /> }
+      { this.state.showBoardForm && <BoardForm addBoard={this.addBoard} editMode={this.state.editMode} boardToEdit={this.state.boardToEdit} updateBoard={this.updateBoard} /> }
       {this.state.boards.map((board) => (<Board key={board.id} board={board} setSingleBoard={setSingleBoard} setEditMode={this.setEditMode} setBoardToEdit={this.setBoardToEdit} />))}
       </div>);
   }
