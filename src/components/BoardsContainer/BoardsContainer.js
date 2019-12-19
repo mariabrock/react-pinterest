@@ -14,6 +14,9 @@ class BoardsContainer extends React.Component {
 
 state = {
   boards: [],
+  editMode: false,
+  boardToEdit: {},
+  showBoardForm: false,
 }
 
 componentDidMount() {
@@ -32,8 +35,21 @@ componentDidMount() {
     boardData.saveBoard(newBoard)
       .then(() => {
         this.getBoards();
+        this.setState({ showBoardForm: false });
       })
       .catch((errorFromSaveBoard) => console.error({ errorFromSaveBoard }));
+  }
+
+  setEditMode = (editMode) => {
+    this.setState({ editMode, showBoardForm: true });
+  }
+
+  setBoardToEdit = (board) => {
+    this.setState({ boardToEdit: board });
+  }
+
+  setShowBoardForm = () => {
+    this.setState({ showBoardForm: true });
   }
 
   render() {
@@ -41,8 +57,9 @@ componentDidMount() {
 
     return (
     <div>
-      <BoardForm addBoard={this.addBoard} />
-      {this.state.boards.map((board) => (<Board key={board.id} board={board} setSingleBoard={setSingleBoard} />))}
+      <button className="btn btn-light" onClick={this.setShowBoardForm}>Add A New Board</button>
+      { this.state.showBoardForm && <BoardForm addBoard={this.addBoard} editMode={this.state.editMode} boardToEdit={this.state.boardToEdit} /> }
+      {this.state.boards.map((board) => (<Board key={board.id} board={board} setSingleBoard={setSingleBoard} setEditMode={this.setEditMode} setBoardToEdit={this.setBoardToEdit} />))}
       </div>);
   }
 }
