@@ -19,8 +19,8 @@ class PinForm extends React.Component {
 
       e.preventDefault();
       const newPin = {
-        pinTitle: this.state.pinTitle,
-        pinImageUrl: this.state.pinImageUrl,
+        title: this.state.pinTitle,
+        imageUrl: this.state.pinImageUrl,
         uid: authData.getUid(),
         boardId: selectedBoardId,
       };
